@@ -1,5 +1,6 @@
 import random
 import sys
+import math
 
 def mostlySortedList(size):
     A_list = createRandomList(size)
@@ -33,14 +34,16 @@ def shakerSort(A):
     while is_Sorted == False:
         is_Sorted = True
         for i in range(len(A) - 1):
+            work += 1
             if A[i] > A[i + 1]:
-                work += 1
                 A[i], A[i + 1] = A[i + 1], A[i]
+                work += 1
                 is_Sorted = False
         for i in range(len(A) -2, -1, -1):
+            work += 1
             if A[i] > A[i + 1]:
-                work += 1
                 A[i], A[i + 1] = A[i + 1], A[i]
+                work += 1
                 is_Sorted = False
     return work
 
@@ -118,6 +121,7 @@ def quickSortR(A, low, high, mod):
     lmgt = low + 1
     
     for i in range(low + 1 , high, 1):
+        work += 1
         if A[i] < A[low]:
             A[i], A[lmgt] = A[lmgt], A[i]
             work += 1
@@ -125,8 +129,8 @@ def quickSortR(A, low, high, mod):
     pivot = lmgt - 1
     A[low], A[pivot] = A[pivot], A[low]
     work += 1
-    work += quickSortR(A, low, pivot, False)
-    work += quickSortR(A, pivot + 1, high, False)
+    work += quickSortR(A, low, pivot, mod)
+    work += quickSortR(A, pivot + 1, high, mod)
     return work
 
 def quickSort(A):
@@ -149,9 +153,9 @@ def main():
         size = 2 ** s
         print(s, end = " ")
         for sort in sorts:
-            print(sort)
-            
-            
+            # A = createRandomList(size)
+            A = mostlySortedList(size)
+            print(round(math.log2(sort(A)), 2), end = " ")
         print()    
             
     
